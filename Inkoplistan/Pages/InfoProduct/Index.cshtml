@@ -37,7 +37,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.antal)
             </td>
+
+        <!--///////////////////////--> @*    Modifica checkbox   *@ <!--///////////////////////////-->
+
             <td>
+                <input type="checkbox" checked="@(1 == 0)" />
+
                 @Html.DisplayFor(modelItem => item.Inhandlad)
             </td>
             <td>

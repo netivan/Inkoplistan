@@ -28,8 +28,7 @@
             @*<div class="col-md-1 border p-2 m-1"> @item.UserId</div>*@
 
 
-        <div>
-            <input type="checkbox" checked="@(1 == 0)">
+            
             <div class="col-md-3 border p-2 m-1">
                 @if (item.Inhandlad == true)
                 {
@@ -38,7 +37,6 @@
                 else
                 {<p style="color:red;">@item.name finns inte!</p>}
             </div>
-        </div>
 
             <div class="col-md-1 border p-2 m-1"> @item.UserId</div>
 
@@ -49,8 +47,6 @@
     </div>
 
 </div>
-
-<div>
 
 
 @if (SignInManager.IsSignedIn(User))
