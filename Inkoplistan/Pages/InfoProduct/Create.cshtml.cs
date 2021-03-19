@@ -35,6 +35,8 @@ namespace Inkoplistan.Pages.InfoProduct
                 return Page();
             }
 
+            Matvara.UserId = User.Identity.Name;
+
             _context.Matvara.Add(Matvara);
             await _context.SaveChangesAsync();
 

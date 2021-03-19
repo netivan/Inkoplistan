@@ -5,20 +5,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Inkoplistan.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Inkoplistan.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly Data.InkoplistanContext _context;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(Data.InkoplistanContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public void OnGet()
+        public IList<Matvara> Matvaror { get; set; }     // Matvaror är en lista som innehåller all data (varorna) hämtade med OnGet
+        
+
+        public async Task<IActionResult> OnGetAsync()    
         {
+
+            Matvaror = await _context.Matvara.ToListAsync();   // Här laddas in (loads) i listan varorna 
+
+            return Page();
 
         }
     }
