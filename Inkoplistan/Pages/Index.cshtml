@@ -1,0 +1,20 @@
+﻿@page
+@model IndexModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Inköpslista</h1>
+
+<a asp-page="/Infoproduct/Index"> Inköplista </a>
+
+    <br />
+    <br />
+        <p>Du kan välja <a href="">här</a>.</p>
+</div>
+
+
+

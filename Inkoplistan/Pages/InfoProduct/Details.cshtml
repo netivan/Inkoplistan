@@ -1,0 +1,43 @@
+﻿@page
+@model Inkoplistan.Pages.InfoProduct.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Matvara</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Matvara.name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Matvara.name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Matvara.antal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Matvara.antal)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Matvara.Inhandlad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Matvara.Inhandlad)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Matvara.UserId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Matvara.UserId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Matvara.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
