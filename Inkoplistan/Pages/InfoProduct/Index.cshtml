@@ -1,5 +1,7 @@
 ﻿@page
 @model Inkoplistan.Pages.InfoProduct.IndexModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -29,7 +31,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Matvara) {
+        @foreach (var item in Model.Matvara)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.name)
@@ -38,29 +41,37 @@
                 @Html.DisplayFor(modelItem => item.antal)
             </td>
 
-        <!--///////////////////////--> @*    Modifica checkbox   *@ <!--///////////////////////////-->
+            <!--///////////////////////--> @*    Modifica checkbox   *@ <!--///////////////////////////-->
 
             <td>
-                <input type="checkbox" checked="@(1 == 0)" />
+                @*<input type="checkbox" checked="@(1 == 0)" />*@
 
                 @Html.DisplayFor(modelItem => item.Inhandlad)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.UserId)
             </td>
-            
-            @if(User.Identity.Name == item.UserId)
-                {
 
-             
+            @if (User.Identity.Name == item.UserId)
+            {
 
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
+
+
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
             }
+
+            else
+            {
+        <td>
+            <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a>
+        </td>
+
+             }
         </tr>
-}
+        }
     </tbody>
 </table>

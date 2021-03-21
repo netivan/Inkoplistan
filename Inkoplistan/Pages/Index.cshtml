@@ -1,67 +1,96 @@
 ﻿@page
-@model IndexModel
-@inject SignInManager<IdentityUser> SignInManager
+@model ProvaModel
+@inject SignInManager<IdentityUser> SignInManager 
 @inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Inköpslista</h1>
 
-    @*<a asp-page="/Infoproduct/Index"> Inköpslista </a>*@
-
-    <br />
-    <br />
-
-    <p>Du kan välja produkten i <a asp-page ="/Infoproduct/Index"><h2>Inköpslistan</h2></a>.</p>
-
-    <div class="container">
+   @if(!SignInManager.IsSignedIn(User))
+   {
+       <h2>Ej inloggad!</h2>
+       <a asp-page="./index">.</a>
+   }
+   else
+   {
 
 
-        @foreach (var item in Model.Matvaror)
-        {
-        <div class="row">
-            <div class="col-md-3 border p-2 m-1"> @item.name</div>
-            <div class="col-md-1 border p-2 m-1"> @item.antal</div>
-            @*<div class="col-md-1 border p-2 m-1"> @item.Inhandlad</div>*@
-            @*<div class="col-md-1 border p-2 m-1"> @item.UserId</div>*@
+    <div class="text-center">
+
+        <h1 class="display-4">Inköpslista</h1>
+
+        @*<a asp-page="/Infoproduct/Index"> Inköplista </a>
+
+        <br />
+        <br />*@
+
+        @*<p>Du kan välja <a href="">här</a>.</p>*@
 
 
-            
-            <div class="col-md-3 border p-2 m-1">
-                @if (item.Inhandlad == true)
-                {
-                    <p>@item.name finns</p>
-                }
-                else
-                {<p style="color:red;">@item.name finns inte!</p>}
+        <form method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> </th>
+                        <th>  @Html.DisplayNameFor(model => model.Matvara[0].name)  </th>
+                        <th>  @Html.DisplayNameFor(model => model.Matvara[0].antal) </th>
+                        <th>  @Html.DisplayNameFor(model => model.Matvara[0].Inhandlad)  </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @*@foreach (var item in Model.Matvara)*@
+                    @for (int i = 0; i < Model.Matvara.Count(); i++)
+                    {
+                        <tr>
+                            <td> <input type="hidden" asp-for="Matvara[i].ID" /></td>
+
+                            <td> <input type="hidden" asp-for="Matvara[i].name" />@Model.Matvara[i].name </td>
+                            <td> <input type="hidden" asp-for="Matvara[i].antal" /> @Model.Matvara[i].antal </td>
+
+
+                            <td>
+                                <div class="form-group form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" asp-for="Matvara[i].Inhandlad" />
+                                    </label>
+                                </div>
+
+                            </td>
+
+                            <td> <input type="hidden" asp-for="Matvara[i].UserId" /> </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model.Matvara[i].UserId)
+                            </td>
+                            @if (User.Identity.Name == Model.Matvara[i].UserId)
+                            {
+                                <td>
+                                    <a asp-page="./InfoProduct/Edit" asp-route-id="@Model.Matvara[i].ID">Edit</a> |
+                                    <a asp-page="./InfoProduct/Details" asp-route-id="@Model.Matvara[i].ID">Details</a> |
+                                    <a asp-page="./InfoProduct/Delete" asp-route-id="@Model.Matvara[i].ID">Delete</a>
+                                </td>
+                            }
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" value="Bekräfta" class="btn btn-primary" />
             </div>
-
-            <div class="col-md-1 border p-2 m-1"> @item.UserId</div>
-
-        </div>
-        }
+        </form>
 
 
     </div>
 
+<div>
+    <a asp-page="./Index">Tillbaka</a>
 </div>
 
+   }
 
-@if (SignInManager.IsSignedIn(User))
-{
-    <br />
-    <br />
-
-    <p>Du är inloggad som @User.Identity.Name </p>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-else
-{
-    <p>Du är INTE inloggad!</p>
-}
-
-</div>
-
-
 

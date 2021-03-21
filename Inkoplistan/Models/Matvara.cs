@@ -17,5 +17,7 @@ namespace Inkoplistan.Models
         public bool Inhandlad { get; set; }
         public string UserId { get; set; }
 
+       
+
     }
 }

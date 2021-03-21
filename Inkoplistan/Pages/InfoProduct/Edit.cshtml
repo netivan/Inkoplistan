@@ -1,9 +1,14 @@
 ﻿@page
 @model Inkoplistan.Pages.InfoProduct.EditModel
 
+@inject SignInManager<IdentityUser> SignInManager 
+@inject UserManager<IdentityUser> UserManager
+
 @{
     ViewData["Title"] = "Edit";
 }
+
+
 
 <h1>Edit</h1>
 
@@ -16,24 +21,44 @@
             <input type="hidden" asp-for="Matvara.ID" />
             <div class="form-group">
                 <label asp-for="Matvara.name" class="control-label"></label>
-                <input asp-for="Matvara.name" class="form-control" />
-                <span asp-validation-for="Matvara.name" class="text-danger"></span>
+                @if (User.Identity.Name == Model.Matvara.UserId)
+                {
+                    <input asp-for="Matvara.name" class="form-control" />
+                    <span asp-validation-for="Matvara.name" class="text-danger"></span>
+                }
+                else
+                {
+                    <input type="hidden" asp-for="Matvara.name" class="form-control" />
+                    <span> @Model.Matvara.name</span>
+                }
             </div>
             <div class="form-group">
                 <label asp-for="Matvara.antal" class="control-label"></label>
-                <input asp-for="Matvara.antal" class="form-control" />
-                <span asp-validation-for="Matvara.antal" class="text-danger"></span>
+
+                @if (User.Identity.Name == Model.Matvara.UserId)
+                {
+                    <input asp-for="Matvara.antal" class="form-control" />
+                    <span asp-validation-for="Matvara.antal" class="text-danger"></span>
+                }
+                else
+                {
+                    <input type="hidden" asp-for="Matvara.antal" class="form-control" />
+                    <span> @Model.Matvara.antal</span>
+                }
             </div>
+
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Matvara.Inhandlad" /> @Html.DisplayNameFor(model => model.Matvara.Inhandlad)
                 </label>
             </div>
+
             <div class="form-group">
-                <label asp-for="Matvara.UserId" class="control-label"></label>
-                <input asp-for="Matvara.UserId" class="form-control" />
-                <span asp-validation-for="Matvara.UserId" class="text-danger"></span>
+                @*<label asp-for="Matvara.UserId" class="control-label"></label>*@
+                <input type="hidden" asp-for="Matvara.UserId" class="form-control" />
+                @*<span asp-validation-for="Matvara.UserId" class="text-danger"></span>*@
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
